@@ -9,8 +9,9 @@ from downloader import download
 
 
 class Video():
-    def __init__(self, url:str, savePath, session:requests.Session):
+    def __init__(self, url:str, session:requests.Session, savePath,  saveDir):
         self.url = url
+        self.saveDir = saveDir
         self.session = session
         self.savePath = savePath
         self.headers = {
@@ -50,10 +51,10 @@ class Video():
         
         currentTime = self.current_time()
         if self.savePath == None:
-            self.savePath = './videos/%s-%s-%s.%s'%(self.userName, self.caption, currentTime, self.videoExt)
-
-        print("All data Found")
-        print("Start Downloading...")
+            if '/' in self.saveDir[-1]:
+                self.savePath = '%s%s-%s-%s.%s'%(self.saveDir, self.userName, self.caption, currentTime, self.videoExt)
+            else:
+                self.savePath = '%s/%s-%s-%s.%s'%(self.saveDir, self.userName, self.caption, currentTime, self.videoExt)
         
         download(
             self.videoUrlFull,
