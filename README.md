@@ -2,7 +2,7 @@
 
 Discover Threads Video Downloader - Your Meta Social Media Companion! Download captivating videos from Meta's Threads effortlessly with our cutting-edge Python tool. Access and preserve your favorite moments with ease. Unleash the true potential of Threads with the video downloader!
 
-![Image](https://github.com/Tonmoy-abc/threads-video-downloader/blob/main/img/pic2.png?raw=true)
+![Image](https://github.com/Tonmoy-abc/threads-video-downloader/blob/main/img/img1.png?raw=true)
 
 ## Prerequisites ##
 
