@@ -1,5 +1,14 @@
 # extra scripts
-test.*
+test*.*
 # url file
 *.url
 # cahce
+__pycache__
+#json
+*.json
+
+# response
+res.*
+
+#videos
+videos/*
