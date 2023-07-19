@@ -150,8 +150,3 @@ class Handler():
             elif type == 'js':
                 f.write(data)
             f.close()
-    
-
-
-if __name__ == '__main__':
-    Handler().graphApi()

@@ -83,7 +83,3 @@ class Video():
     def get_file_extension(cls, file_path):
         _, file_extension = os.path.splitext(file_path)
         return file_extension
-    
-if __name__ == "__main__":
-    video = Video('https://www.threads.net/@ashishchanchlani/post/CuzPRZOohOn')
-    video.download()
