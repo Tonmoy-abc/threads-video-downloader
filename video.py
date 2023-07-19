@@ -1,15 +1,18 @@
 import os
 import requests
+from error import *
 from handler import Handler
+from datetime import datetime
 from urllib.parse import urlparse
 from downloader import download
-from datetime import datetime
+
 
 
 class Video():
-    def __init__(self, url:str, session:requests.Session=requests.Session()):
+    def __init__(self, url:str, savePath, session:requests.Session):
         self.url = url
         self.session = session
+        self.savePath = savePath
         self.headers = {
             'authority': 'scontent.cdninstagram.com',
             'accept': '*/*',
@@ -29,7 +32,11 @@ class Video():
     
     def download(self):
         handler = Handler(self.url, self.session)
-        data = handler.graphApi()
+        try:
+            data = handler.graphApi()
+        except StatusError as e:
+            print("Can't download .. url:%s stats code:%s"%(e['url'],e['error_code']))
+            exit()
         post = data["data"]["data"]["containing_thread"]["thread_items"][0]["post"]
         self.userName = post["user"]["username"]
         self.width = post["original_width"]
@@ -42,16 +49,28 @@ class Video():
         self.replyCount = post["text_post_app_info"]["direct_reply_count"]
         
         currentTime = self.current_time()
-        self.savePath = './videos/%s-%s-%s.%s'%(self.userName, self.caption, currentTime, self.videoExt)
+        if self.savePath == None:
+            self.savePath = './videos/%s-%s-%s.%s'%(self.userName, self.caption, currentTime, self.videoExt)
+
         print("All data Found")
         print("Start Downloading...")
         
         download(
             self.videoUrlFull,
             self.savePath,
+            self.videoExt,
             self.headers,
             self.session
             )
+        
+    def checkStatus(self):
+        handler = Handler(self.url, self.session)
+        try:
+            handler.graphApi()["data"]["data"]["containing_thread"]["thread_items"][0]["post"]["video_versions"][0]["url"]
+            return "Ok"
+        except:
+            return "Error"
+
         
         
     @classmethod

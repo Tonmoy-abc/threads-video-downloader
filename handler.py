@@ -1,6 +1,7 @@
 import re
 import json
 import requests
+from error import *
 
 class Handler():
     def __init__(self, url:str, session:requests.Session):
@@ -69,6 +70,8 @@ class Handler():
 
     def crawl(self) -> dict:
         res = self.session.get(self.url, headers=self.headersInit)
+        if res.status_code != 200:
+            raise StatusError("Status Error", res.status_code, res.url)
         #content = BeautifulSoup(res.content, 'html.parser')
         #formated = content.prettify()
         #self.save_res('html', formated)
@@ -85,6 +88,8 @@ class Handler():
             '_nc_x': 'Ij3Wp8lg5Kz',
         }
         res = self.session.get(self.urlJs, params=params, headers=self.headersJs)
+        if res.status_code != 200:
+            raise StatusError("Status Error", res.status_code, res.url)
         #self.save_res('js',res.text)
         doc_id = re.findall(r'[0-9]+' ,re.findall(r"params:{id:\"[0-9]*\"", res.text, re.MULTILINE)[0])[0]
         return {
@@ -133,7 +138,7 @@ class Handler():
         if res.status_code == 200:
             return res.json()
         else:
-            raise Exception(f"error {res.status_code}, {res.json()}")      
+            raise StatusError("Status Error", res.status_code, res.url)      
 
     @classmethod
     def save_res(cls, type:str, data):
