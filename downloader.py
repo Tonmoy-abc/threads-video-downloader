@@ -3,6 +3,9 @@ from tqdm import tqdm
 import os
 
 def download(url:str, filePath:str,  header:dict, session:requests.Session, chunk_size=8192):
+    if not os.path.exists(filePath):
+        print("Path does not exist! Crate the path %s and then try again"%(os.path.dirname(filePath)))
+        exit()
     try:
         session.headers.update(header)
         response = session.get(url, headers=header, stream=True)
