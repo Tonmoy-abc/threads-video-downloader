@@ -11,6 +11,7 @@ To run this application, you need to have the following installed:
 - `Python (version 3.6 or higher)`
 - `Requests (version 2.26.0 or higher)`
 
+###[Documentation](https://github.com/Tonmoy-abc/docs_threads_downoader/blob/main/docs.md)
 ## Quick Setup ##
 
 1. Clone this repository to your local machine or download the ZIP file.

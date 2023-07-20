@@ -9,7 +9,7 @@ from downloader import download
 
 
 class Video():
-    def __init__(self, url:str, session:requests.Session, savePath,  saveDir):
+    def __init__(self, url:str, session:requests.Session, savePath=None,  saveDir='./videos'):
         self.url = url
         self.saveDir = saveDir
         self.session = session
