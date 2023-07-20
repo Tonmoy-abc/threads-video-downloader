@@ -16,8 +16,8 @@ class ThreadsDownload(Video):
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(prog='app.py' , description="Threads Video Downloader is a python app for downloading Mats's new Threads app videos")
     parser.add_argument('-d', '--download', action='store_true', help="Download option")
-    parser.add_argument('--url', '-u', help="URL argument")
-    parser.add_argument('--output', '-o', help="Output path *optional by default ./videos/file name.ext")
+    parser.add_argument('--url', '-u', help="URL of the video")
+    parser.add_argument('--output', '-o', help="Output path *optional by default ./videos/file_name.ext")
     parser.add_argument('--input', '-i', help="Input txt file path for multiple videos download together *optional")
     parser.add_argument('--dir', help="The directory for saving files")
     args = parser.parse_args()
