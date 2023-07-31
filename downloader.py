@@ -4,8 +4,7 @@ import os
 
 def download(url:str, filePath:str, fileExt,  header:dict, session:requests.Session, chunk_size=8192):
     if not os.path.isdir(os.path.dirname(filePath)):
-        print("Path does not exist! Crate the path %s and then try again"%(os.path.dirname(filePath)))
-        exit()
+        os.makedirs(os.path.dirname(filePath)))
     try:
         session.headers.update(header)
         response = session.get(url, headers=header, stream=True)
