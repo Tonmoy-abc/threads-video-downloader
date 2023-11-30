@@ -5,12 +5,8 @@ from error import *
 
 def download(url:str, filePath:str, fileExt,  header:dict, session:requests.Session, chunk_size=8192):
     if not os.path.isdir(os.path.dirname(filePath)):
-<<<<<<< HEAD
         print("Path does not exist! Create the path %s and then try again"%(os.path.dirname(filePath)))
         exit()
-=======
-        os.makedirs(os.path.dirname(filePath)))
->>>>>>> f7773fd15f8f7564a210bea869f1e532854ceb22
     try:
         session.headers.update(header)
         response = session.get(url, headers=header, stream=True)
