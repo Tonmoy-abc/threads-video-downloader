@@ -34,11 +34,11 @@ class Video():
     def download(self):
         handler = Handler(self.url, self.session)
         try:
-            data = handler.graphApi()
+            data = handler.crawl()
         except StatusError as e:
             print("Can't download .. url:%s stats code:%s"%(e['url'],e['error_code']))
             exit()
-        post = data["data"]["data"]["containing_thread"]["thread_items"][0]["post"]
+        post = data["data"]["data"]["edges"][0]["node"]["thread_items"][0]["post"]
         self.userName = post["user"]["username"]
         self.width = post["original_width"]
         self.height = post["original_height"]
@@ -56,6 +56,7 @@ class Video():
             else:
                 self.savePath = '%s/%s-%s-%s.%s'%(self.saveDir, self.userName, self.caption, currentTime, self.videoExt)
         
+        print(self.caption)
         download(
             self.videoUrlFull,
             self.savePath,
@@ -64,13 +65,7 @@ class Video():
             self.session
             )
         
-    def checkStatus(self):
-        handler = Handler(self.url, self.session)
-        try:
-            handler.graphApi()["data"]["data"]["containing_thread"]["thread_items"][0]["post"]["video_versions"][0]["url"]
-            return "Ok"
-        except:
-            return "Error"
+        print(f"Download complete \"{self.savePath}\"" )
 
         
         
