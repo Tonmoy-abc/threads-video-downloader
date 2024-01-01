@@ -67,7 +67,15 @@ class Video():
         
         print(f"Download complete \"{self.savePath}\"" )
 
-        
+    def checkStatus(self):
+        handler = Handler(self.url, self.session)
+        try:
+            data = handler.crawl()
+        except StatusError as e:
+            print("Can't download .. url:%s stats code:%s"%(e['url'],e['error_code']))
+            exit()
+        post = data["data"]["data"]["edges"][0]["node"]["thread_items"][0]["post"]
+        return post["caption"]["text"]
         
     @classmethod
     def current_time(cls, format_str="%Y-%m-%d_%H-%M-%S"):
